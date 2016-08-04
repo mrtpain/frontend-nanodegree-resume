@@ -11,8 +11,8 @@ var bio = {
 	}
 	],
 	"bioPic": 'images/me.jpg',
-	"welcomeMessage": "Welcome to my resume where you can read all about my awesome ass skills.",
-	"skills": ["HTML5", "SASS", "jQuery", "JavaScript", "NodeJs", "Craft CMS"]
+	"welcomeMessage": "Welcome to my resume where you can read all about my awesome ass skills. I've been developing for several years now and am excelling at a crazy pace. So crazy that before I finish projects, I already want to restart and build a newer, faster and better one.",
+	"skills": ["HTML5", "CSS3", "SASS", "jQuery", "JavaScript", "Craft CMS", "Foundation", "Bootstrap", "Gulp", "Twig", "Grunt"]
 };
 
 var work = {
@@ -33,7 +33,7 @@ var work = {
 		},
 		{
 			"employer": "AT&T",
-			"title": "Retail Sales Consulatant",
+			"title": "Retail Sales Consultant",
 			"location": "Brentwood, CA",
 			"dates": "January 2013 - November 2015",
 			"description": "Work with customers to meet and exceed their needs with sales as well as services. Maintain wireless accounts as well as consulting with customers about updated AT&T products and services. Performing services for customers including troubleshooting software and hardware of phones as well as other AT&T products such as U-verse services, AT&T Digital Life, Wireless Home Phones, and hotspot devices. With sales being the main focus of the job title, devices and services sold include tablets, smartphones, U-verse home services, Digital Life home automation, smart watches and many other accessories and products."
@@ -46,16 +46,17 @@ var education = {
 		{
 			"name": "Los Medanos College",
 			"location": "Antioch, CA",
-			"years": "2012",
 			"degree": "N/A",
-			"major": "N/A"
+			"major": "N/A",
+			"dates": "2012"
+			
 		},
 		{
 			"name": "Kaplan University",
 			"location": "Davenport, IA",
-			"years": "2012 - 2015",
 			"degree": "Bachelors of Science in Information Technology",
-			"major": "Computer Science"
+			"major": "Computer Science",
+			"dates": "2012 - 2015"
 		}
 	]
 }
@@ -106,6 +107,25 @@ projects.display = function() {
 	}
 };
 
+// Need to apply URL for links
+education.display = function() {
+	for (school in education.schools) {
+		$('#education').append(HTMLschoolStart);
+
+		var formattedName = HTMLschoolName.replace('%data%', education.schools[school].name);
+		var formattedDegree = HTMLschoolDegree.replace('%data%', education.schools[school].degree);
+		$('.education-entry:last').append(formattedName + formattedDegree);
+
+		var formattedDates = HTMLschoolDates.replace('%data%', education.schools[school].dates);
+		$('.education-entry:last').append(formattedDates);
+		var formattedLocation = HTMLschoolLocation.replace('%data%', education.schools[school].location);
+		$('.education-entry:last').append(formattedLocation);
+
+		var formattedMajors = HTMLschoolMajor.replace('%data%', education.schools[school].major);
+		$('.education-entry:last').append(formattedMajors);
+	}
+};
+
 // DISPLAY BIO INFORMATION IN AN OBJECT THAT HOLDS A FUNCTION
 bio.display = function () {
 	// APPEND NAME, ROLE, PIC, AND WELCOME MESSAGE TO HEADER
@@ -126,11 +146,11 @@ bio.display = function () {
 		var formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts[contact].twitter);
 		var formattedGithub = HTMLgithub.replace("%data%", bio.contacts[contact].github);
 		var formattedLocation = HTMLlocation.replace("%data%", bio.contacts[contact].location);
-		$('#topContacts').append(formattedMobile);
-		$('#topContacts').append(formattedEmail);
-		$('#topContacts').append(formattedTwitter);
-		$('#topContacts').append(formattedGithub);
-		$('#topContacts').append(formattedLocation);
+		$('#topContacts, #footerContacts').append(formattedMobile);
+		$('#topContacts, #footerContacts').append(formattedEmail);
+		$('#topContacts, #footerContacts').append(formattedTwitter);
+		$('#topContacts, #footerContacts').append(formattedGithub);
+		$('#topContacts, #footerContacts').append(formattedLocation);
 	}
 
 	// APPEND SKILLS TO HEADER
@@ -142,7 +162,7 @@ bio.display = function () {
 }
 
 // DISPLAY WORK EXPERIENCE IN A FUNCTION RATHER THAN AN OBJECT
-function displayWork() {
+work.display = function () {
 	for(job in work.jobs) {
 		$('#workExperience').append(HTMLworkStart);
 
@@ -173,20 +193,12 @@ function inName(name) {
 
 
 bio.display();
+work.display();
 projects.display();
-displayWork();
+education.display();
+
 $('#mapDiv').append(googleMap);
 $('#main').append(internationalizeButton);
-
-
-
-
-
-
-
-
-
-
 
 
 
