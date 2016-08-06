@@ -1,13 +1,13 @@
 var bio = {
     "name": "Tyler Pena",
     "role": "Web Developer",
-    "contacts": [{
+    "contacts": {
         "mobile": "925-813-2796",
         "email": "tylerpena@me.com",
         "github": "mrtpain",
         "twitter": "@mrtpain_",
         "location": "Oakley, CA"
-    }],
+    },
     "welcomeMessage": "Welcome to my resume where you can read all about my awesome ass skills. I've been developing for several years now and am excelling at a crazy pace. So crazy that before I finish projects, I already want to restart and build a newer, faster and better one.",
     "skills": ["HTML5", "CSS3", "SASS", "jQuery", "JavaScript", "Craft CMS", "Foundation", "Bootstrap", "Gulp", "Twig", "Grunt"],
     "biopic": 'images/me.jpg'
@@ -27,18 +27,16 @@ bio.display = function() {
     $('#header').append(formattedWelcome);
 
     // APPEND CONTACTS TO HEADER
-    for (var i = 0; i < bio['contacts'].length; i++) {
-        var formattedMobile = HTMLmobile.replace("%data%", bio.contacts[i].mobile);
-        var formattedEmail = HTMLemail.replace("%data%", bio.contacts[i].email);
-        var formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts[i].twitter);
-        var formattedGithub = HTMLgithub.replace("%data%", bio.contacts[i].github);
-        var formattedLocation = HTMLlocation.replace("%data%", bio.contacts[i].location);
-        $('#topContacts, #footerContacts').append(formattedMobile);
-        $('#topContacts, #footerContacts').append(formattedEmail);
-        $('#topContacts, #footerContacts').append(formattedTwitter);
-        $('#topContacts, #footerContacts').append(formattedGithub);
-        $('#topContacts, #footerContacts').append(formattedLocation);
-    }
+    var formattedMobile = HTMLmobile.replace("%data%", bio['contacts'].mobile);
+    var formattedEmail = HTMLemail.replace("%data%", bio['contacts'].email);
+    var formattedTwitter = HTMLtwitter.replace("%data%", bio['contacts'].twitter);
+    var formattedGithub = HTMLgithub.replace("%data%", bio['contacts'].github);
+    var formattedLocation = HTMLlocation.replace("%data%", bio['contacts'].location);
+    $('#topContacts, #footerContacts').append(formattedMobile);
+    $('#topContacts, #footerContacts').append(formattedEmail);
+    $('#topContacts, #footerContacts').append(formattedTwitter);
+    $('#topContacts, #footerContacts').append(formattedGithub);
+    $('#topContacts, #footerContacts').append(formattedLocation);
 
     // APPEND SKILLS TO HEADER
     $('#header').append(HTMLskillsStart);
@@ -54,7 +52,7 @@ var education = {
         "name": "Los Medanos College",
         "location": "Antioch, CA",
         "degree": "N/A",
-        "majors": "N/A",
+        "majors": ["N/A"],
         "dates": "2012",
         "url": "http://www.losmedanos.edu/"
 
@@ -62,7 +60,7 @@ var education = {
         "name": "Kaplan University",
         "location": "Davenport, IA",
         "degree": "Bachelors of Science in Information Technology",
-        "majors": "Computer Science",
+        "majors": ["Computer Science"],
         "dates": "2012 - 2015",
         "url": "http://kaplanuniversity.edu"
     }],
@@ -93,8 +91,9 @@ education.display = function() {
         $('.education-entry:last').append(formattedMajors);
     }
 
+    $('#education').append(HTMLonlineClasses);
+    
     for (var i = 0; i < education['onlineCourses'].length; i++) {
-        $('#education').append(HTMLonlineClasses);
         $('#education').append(HTMLschoolStart);
 
         var formattedCourseName = HTMLonlineTitle.replace('%data%', education.onlineCourses[i].title);
